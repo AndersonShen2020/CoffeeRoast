@@ -10,7 +10,10 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content border-0">
         <div class="modal-header bg-primary text-white">
-          <h5 id="productModalLabel" class="modal-title">
+          <h5
+            id="productModalLabel"
+            class="modal-title"
+          >
             <span>{{ product.title }}</span>
           </h5>
         </div>
@@ -23,7 +26,7 @@
                   class="img-fluid"
                   :src="product.imageUrl"
                   :alt="product.title"
-                />
+                >
               </div>
             </div>
             <div class="col-sm-8">
@@ -48,8 +51,16 @@
         </div>
 
         <div class="modal-footer">
-          <select id="" class="form-select w-auto" v-model="qty">
-            <option :value="num" v-for="num in 20" :key="num">
+          <select
+            id=""
+            class="form-select w-auto"
+            v-model="qty"
+          >
+            <option
+              :value="num"
+              v-for="num in 20"
+              :key="num"
+            >
               {{ num }}
             </option>
           </select>
@@ -60,7 +71,11 @@
           >
             取消
           </button>
-          <button type="button" class="btn btn-primary" @click="addToCart(id)">
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="addToCart(id)"
+          >
             加入購物車
           </button>
         </div>

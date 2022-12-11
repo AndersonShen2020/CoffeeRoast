@@ -1,6 +1,9 @@
 <template>
   <Loading :active="isLoading" />
-  <div class="container main py-3" v-if="products.length > 0">
+  <div
+    class="container main py-3"
+    v-if="products.length > 0"
+  >
     <div class="row text-center px-3">
       <div class="col-4 d-flex flex-column bg-primary text-secondary p-3">
         <span>STEP1</span>
@@ -21,20 +24,30 @@
         <ShoppingCart @reset-page="getCart" />
       </div>
       <div class="col-md-5 bg-light bg-opacity-50">
-        <p class="d-flex fs-3 fw-bold m-3 text-primary">填寫訂購資訊</p>
+        <p class="d-flex fs-3 fw-bold m-3 text-primary">
+          填寫訂購資訊
+        </p>
         <ValidateForm class="p-3" />
       </div>
     </div>
   </div>
 
-  <div class="container main py-3" v-if="products.length === 0">
+  <div
+    class="container main py-3"
+    v-if="products.length === 0"
+  >
     <div
       class="d-flex flex-column justify-content-center align-items-center text-primary"
     >
-      <i class="bi bi-cart-fill cart-icon"></i>
+      <i class="bi bi-cart-fill cart-icon" />
       <p>您的購物車中沒有商品</p>
       <RouterLink to="/products">
-        <button type="button" class="btn coffee-btn">去購物</button>
+        <button
+          type="button"
+          class="btn coffee-btn"
+        >
+          去購物
+        </button>
       </RouterLink>
     </div>
   </div>

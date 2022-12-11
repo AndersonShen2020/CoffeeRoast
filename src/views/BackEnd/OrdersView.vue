@@ -12,19 +12,35 @@
       </tr>
     </thead>
     <tbody>
-      <template v-for="item in orders" :key="item.id">
-        <tr v-if="orders.length" :class="{ 'text-secondary': !item.is_paid }">
+      <template
+        v-for="item in orders"
+        :key="item.id"
+      >
+        <tr
+          v-if="orders.length"
+          :class="{ 'text-secondary': !item.is_paid }"
+        >
           <td>{{ new Date(item.create_at * 1000).toLocaleDateString() }}</td>
-          <td><span v-text="item.user.email" v-if="item.user"></span></td>
+          <td>
+            <span
+              v-text="item.user.email"
+              v-if="item.user"
+            />
+          </td>
           <td>
             <ul class="list-unstyled">
-              <li v-for="product in item.products" :key="product.id">
+              <li
+                v-for="product in item.products"
+                :key="product.id"
+              >
                 {{ product.product.title }} 數量：{{ product.qty }}
                 {{ product.product.unit }}
               </li>
             </ul>
           </td>
-          <td class="text-right">{{ item.total }}</td>
+          <td class="text-right">
+            {{ item.total }}
+          </td>
           <td>
             <div class="form-check form-switch">
               <input
@@ -33,8 +49,11 @@
                 :id="`paidSwitch${item.id}`"
                 v-model="item.is_paid"
                 @change="updateOrder(item)"
-              />
-              <label class="form-check-label" :for="`paidSwitch${item.id}`">
+              >
+              <label
+                class="form-check-label"
+                :for="`paidSwitch${item.id}`"
+              >
                 <span v-if="item.is_paid">已付款</span>
                 <span v-else>未付款</span>
               </label>
@@ -62,13 +81,20 @@
       </template>
     </tbody>
   </table>
-  <Pagination :pages="pagination" @emitpages="getOrders" />
+  <Pagination
+    :pages="pagination"
+    @emitpages="getOrders"
+  />
   <OrderModal
     ref="orderModal"
     :order-data="tempOrder"
     @update-orders="updateOrder"
   />
-  <DelOrderModal ref="delModel" :coupon="tempOrder" @del-order="delOrder" />
+  <DelOrderModal
+    ref="delModel"
+    :coupon="tempOrder"
+    @del-order="delOrder"
+  />
 </template>
 
 <script>

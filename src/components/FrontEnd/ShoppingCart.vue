@@ -38,15 +38,24 @@
             @change="updateCartItem(product)"
             :disabled="isLoadingItem === product.id"
           >
-            <option :value="num" v-for="num in 20" :key="`${num}${product.id}`">
+            <option
+              :value="num"
+              v-for="num in 20"
+              :key="`${num}${product.id}`"
+            >
               {{ num }}
             </option>
           </select>
-          <span class="input-group-text" id="basic-addon2">
+          <span
+            class="input-group-text"
+            id="basic-addon2"
+          >
             {{ product.product.unit }}
           </span>
         </div>
-        <div class="text-end mt-1">NT$ {{ product.final_total }}</div>
+        <div class="text-end mt-1">
+          NT$ {{ product.final_total }}
+        </div>
       </div>
     </li>
     <li class="py-3">
@@ -62,20 +71,30 @@
           class="form-control"
           v-model="couponCode"
           placeholder="輸入優惠碼享 8 折優惠"
-        />
-        <button type="button" class="btn coffee-btn" @click="useCoupon">
+        >
+        <button
+          type="button"
+          class="btn coffee-btn"
+          @click="useCoupon"
+        >
           套用優惠卷
         </button>
       </div>
     </li>
     <li class="py-3 text-end">
       <p>總計 NT$ {{ cartData.total }}</p>
-      <p class="text-success" v-if="isCoupon">
+      <p
+        class="text-success"
+        v-if="isCoupon"
+      >
         折扣價 NT$ {{ cartData.final_total }}
       </p>
     </li>
   </ul>
-  <DelCart ref="delCart" @del-cart="clearAllCarts" />
+  <DelCart
+    ref="delCart"
+    @del-cart="clearAllCarts"
+  />
 </template>
 
 <script>

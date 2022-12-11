@@ -33,9 +33,9 @@
           <ul class="list-unstyled p-3">
             <p class="d-flex fs-3 fw-bold">
               訂單內容
-              <span :class="{ 'text-danger': !isPaid, 'text-success': isPaid }"
-                >({{ isPaid ? '付款成功' : '未付款' }})</span
-              >
+              <span
+                :class="{ 'text-danger': !isPaid, 'text-success': isPaid }"
+              >({{ isPaid ? '付款成功' : '未付款' }})</span>
             </p>
             <li
               class="py-3 border-bottom"
@@ -54,38 +54,48 @@
                 class="fs-5 fw-bold"
                 :class="{ 'text-danger': !isPaid, 'text-success': isPaid }"
               >
-                {{ order.total }}</span
-              >
+                {{ order.total }}</span>
             </li>
           </ul>
         </div>
         <div class="col-md-5 bg-light bg-opacity-50 p-3">
-          <p class="fs-3 fw-bold">訂購資訊</p>
+          <p class="fs-3 fw-bold">
+            訂購資訊
+          </p>
           <ul class="list-unstyled">
             <li class="row">
-              <p class="col-4">訂單金額：</p>
+              <p class="col-4">
+                訂單金額：
+              </p>
               <p class="col">
                 NT$
                 <span
                   class="fs-5 fw-bold"
                   :class="{ 'text-danger': !isPaid, 'text-success': isPaid }"
                 >
-                  {{ order.total }}</span
-                >
+                  {{ order.total }}</span>
               </p>
             </li>
             <li class="row">
-              <p class="col-4">訂單編號：</p>
-              <p class="col">{{ order.id }}</p>
+              <p class="col-4">
+                訂單編號：
+              </p>
+              <p class="col">
+                {{ order.id }}
+              </p>
             </li>
             <li class="row">
-              <p class="col-4">訂購時間：</p>
+              <p class="col-4">
+                訂購時間：
+              </p>
               <p class="col">
                 {{ new Date(order.create_at * 1000).toLocaleString() }}
               </p>
             </li>
             <li class="row">
-              <p class="col-4">Email：</p>
+              <p class="col-4">
+                Email：
+              </p>
               <p class="col">
                 <a :href="'mailto:' + order?.user?.email">{{
                   order?.user?.email
@@ -93,11 +103,17 @@
               </p>
             </li>
             <li class="row">
-              <p class="col-4">收件人姓名：</p>
-              <p class="col">{{ order?.user?.name }}</p>
+              <p class="col-4">
+                收件人姓名：
+              </p>
+              <p class="col">
+                {{ order?.user?.name }}
+              </p>
             </li>
             <li class="row">
-              <p class="col-4">聯絡電話</p>
+              <p class="col-4">
+                聯絡電話
+              </p>
               <p class="col">
                 <a :href="'tel:+' + order?.user?.tel">
                   {{ order?.user?.tel }}
@@ -105,12 +121,20 @@
               </p>
             </li>
             <li class="row">
-              <p class="col-4">收件地址：</p>
-              <p class="col">{{ order?.user?.address }}</p>
+              <p class="col-4">
+                收件地址：
+              </p>
+              <p class="col">
+                {{ order?.user?.address }}
+              </p>
             </li>
             <li class="row">
-              <p class="col-4">備註：</p>
-              <p class="col">{{ order.message }}</p>
+              <p class="col-4">
+                備註：
+              </p>
+              <p class="col">
+                {{ order.message }}
+              </p>
             </li>
             <li class="row mt-3 px-3">
               <button
@@ -124,8 +148,9 @@
                 class="btn coffee-btn p-4 coffee-btn-ls"
                 to="/Products"
                 v-else
-                >繼續購物 ！</RouterLink
               >
+                繼續購物 ！
+              </RouterLink>
             </li>
           </ul>
         </div>
@@ -138,15 +163,23 @@
           <div class="col-lg-7 col-md-5 mx-auto">
             <div class="card-body">
               <div class="text-center fs-1 mb-3">
-                <i class="bi bi-cart-check text-secondary"></i>
+                <i class="bi bi-cart-check text-secondary" />
               </div>
-              <h2 class="text-center">完成訂單</h2>
+              <h2 class="text-center">
+                完成訂單
+              </h2>
 
-              <div class="border border-secondary my-5"></div>
+              <div class="border border-secondary my-5" />
 
-              <div class="accordion my-5" id="accordionFlushExample">
+              <div
+                class="accordion my-5"
+                id="accordionFlushExample"
+              >
                 <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingOne">
+                  <h2
+                    class="accordion-header"
+                    id="flush-headingOne"
+                  >
                     <button
                       class="accordion-button collapsed"
                       type="button"
@@ -185,7 +218,9 @@
 
               <ul class="list-unstyled">
                 <li class="row">
-                  <p class="col-4">訂單金額：</p>
+                  <p class="col-4">
+                    訂單金額：
+                  </p>
                   <p class="col">
                     NT$
                     <span
@@ -195,22 +230,29 @@
                         'text-success': isPaid
                       }"
                     >
-                      {{ order.total }}</span
-                    >
+                      {{ order.total }}</span>
                   </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">訂單編號：</p>
-                  <p class="col">{{ order.id }}</p>
+                  <p class="col-4">
+                    訂單編號：
+                  </p>
+                  <p class="col">
+                    {{ order.id }}
+                  </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">訂購時間：</p>
+                  <p class="col-4">
+                    訂購時間：
+                  </p>
                   <p class="col">
                     {{ new Date(order.create_at * 1000).toLocaleString() }}
                   </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">Email：</p>
+                  <p class="col-4">
+                    Email：
+                  </p>
                   <p class="col">
                     <a :href="'mailto:' + order?.user?.email">{{
                       order?.user?.email
@@ -218,11 +260,17 @@
                   </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">收件人姓名：</p>
-                  <p class="col">{{ order?.user?.name }}</p>
+                  <p class="col-4">
+                    收件人姓名：
+                  </p>
+                  <p class="col">
+                    {{ order?.user?.name }}
+                  </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">聯絡電話</p>
+                  <p class="col-4">
+                    聯絡電話
+                  </p>
                   <p class="col">
                     <a :href="'tel:+' + order?.user?.tel">
                       {{ order?.user?.tel }}
@@ -230,12 +278,20 @@
                   </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">收件地址：</p>
-                  <p class="col">{{ order?.user?.address }}</p>
+                  <p class="col-4">
+                    收件地址：
+                  </p>
+                  <p class="col">
+                    {{ order?.user?.address }}
+                  </p>
                 </li>
                 <li class="row">
-                  <p class="col-4">備註：</p>
-                  <p class="col">{{ order.message }}</p>
+                  <p class="col-4">
+                    備註：
+                  </p>
+                  <p class="col">
+                    {{ order.message }}
+                  </p>
                 </li>
                 <li class="row mt-3 px-3">
                   <button
@@ -249,8 +305,9 @@
                     class="btn coffee-btn p-4 coffee-btn-ls"
                     to="/Products"
                     v-else
-                    >繼續購物 ！</RouterLink
                   >
+                    繼續購物 ！
+                  </RouterLink>
                 </li>
               </ul>
             </div>

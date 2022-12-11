@@ -16,5 +16,10 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   },
 
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/standard']
+  extends: [
+    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-strongly-recommended',
+    'eslint:recommended',
+    '@vue/standard'
+  ]
 }

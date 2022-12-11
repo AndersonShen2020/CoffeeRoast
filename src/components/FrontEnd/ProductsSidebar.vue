@@ -9,9 +9,15 @@
         </RouterLink>
       </div>
 
-      <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div
+        class="accordion accordion-flush"
+        id="accordionFlushExample"
+      >
         <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingOne">
+          <h2
+            class="accordion-header"
+            id="flush-headingOne"
+          >
             <button
               class="accordion-button collapsed text-primary"
               type="button"
@@ -27,7 +33,11 @@
             aria-labelledby="flush-headingOne"
           >
             <div class="accordion-body ms-2">
-              <div v-for="item in categories[1]" :key="item" class="d-flex">
+              <div
+                v-for="item in categories[1]"
+                :key="item"
+                class="d-flex"
+              >
                 <RouterLink
                   :to="{ path: '/products', query: { category: item } }"
                 >
@@ -38,7 +48,10 @@
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingTwo">
+          <h2
+            class="accordion-header"
+            id="flush-headingTwo"
+          >
             <button
               class="accordion-button collapsed text-primary"
               type="button"
@@ -54,7 +67,11 @@
             aria-labelledby="flush-headingTwo"
           >
             <div class="accordion-body ms-2">
-              <div v-for="item in categories[2]" :key="item" class="d-flex">
+              <div
+                v-for="item in categories[2]"
+                :key="item"
+                class="d-flex"
+              >
                 <RouterLink
                   :to="{ path: '/products', query: { category: item } }"
                 >
@@ -80,7 +97,11 @@
         <span class="badge bg-primary mb-1">咖啡豆</span>
 
         <ol class="breadcrumb mb-0">
-          <li v-for="item in categories[1]" :key="item" class="breadcrumb-item">
+          <li
+            v-for="item in categories[1]"
+            :key="item"
+            class="breadcrumb-item"
+          >
             <RouterLink :to="{ path: '/products', query: { category: item } }">
               {{ item + '咖啡豆' }}
             </RouterLink>
@@ -91,7 +112,11 @@
         <span class="badge bg-primary mb-1">周邊器材</span>
 
         <ol class="breadcrumb mb-0">
-          <li v-for="item in categories[2]" :key="item" class="breadcrumb-item">
+          <li
+            v-for="item in categories[2]"
+            :key="item"
+            class="breadcrumb-item"
+          >
             <RouterLink :to="{ path: '/products', query: { category: item } }">
               {{ item }}
             </RouterLink>

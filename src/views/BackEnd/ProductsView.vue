@@ -2,31 +2,57 @@
   <Loading :active="isLoading" />
   <div class="container">
     <div class="text-end mt-4">
-      <button type="button" class="btn btn-primary" @click="showModal('new')">
+      <button
+        type="button"
+        class="btn btn-primary"
+        @click="showModal('new')"
+      >
         建立新的產品
       </button>
     </div>
     <table class="table mt-4">
       <thead>
         <tr>
-          <th width="120">主分類</th>
-          <th width="120">次分類</th>
+          <th width="120">
+            主分類
+          </th>
+          <th width="120">
+            次分類
+          </th>
           <th>產品名稱</th>
-          <th width="120">原價</th>
-          <th width="120">售價</th>
-          <th width="100">是否啟用</th>
-          <th width="120">編輯</th>
+          <th width="120">
+            原價
+          </th>
+          <th width="120">
+            售價
+          </th>
+          <th width="100">
+            是否啟用
+          </th>
+          <th width="120">
+            編輯
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in products" :key="product.id">
+        <tr
+          v-for="product in products"
+          :key="product.id"
+        >
           <td>{{ product.classification }}</td>
           <td>{{ product.category }}</td>
           <td>{{ product.title }}</td>
-          <td class="text-end">{{ product.origin_price }}</td>
-          <td class="text-end">{{ product.price }}</td>
+          <td class="text-end">
+            {{ product.origin_price }}
+          </td>
+          <td class="text-end">
+            {{ product.price }}
+          </td>
           <td>
-            <span class="text-success" v-if="product.is_enabled">啟用</span>
+            <span
+              class="text-success"
+              v-if="product.is_enabled"
+            >啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
@@ -50,11 +76,21 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pages="pagination" @emitpages="init" />
+    <Pagination
+      :pages="pagination"
+      @emitpages="init"
+    />
   </div>
   <!-- Modal -->
-  <ProductModal :productinfo="tempProduct" :state="isNew" @update="init" />
-  <DelProductModal :productinfo="tempProduct" @update="init" />
+  <ProductModal
+    :productinfo="tempProduct"
+    :state="isNew"
+    @update="init"
+  />
+  <DelProductModal
+    :productinfo="tempProduct"
+    @update="init"
+  />
   <!-- Modal -->
 </template>
 

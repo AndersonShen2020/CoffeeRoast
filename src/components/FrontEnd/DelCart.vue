@@ -10,7 +10,10 @@
     <div class="modal-dialog">
       <div class="modal-content border-0">
         <div class="modal-header bg-danger text-white">
-          <h5 id="delProductModalLabel" class="modal-title">
+          <h5
+            id="delProductModalLabel"
+            class="modal-title"
+          >
             <span>刪除所有購物車內容</span>
           </h5>
           <button
@@ -18,7 +21,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
-          ></button>
+          />
         </div>
         <div class="modal-body">
           是否確定刪除
@@ -26,10 +29,20 @@
           ？
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
             取消
           </button>
-          <button type="button" class="btn btn-danger" @click="deleteCart">確認刪除</button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            @click="deleteCart"
+          >
+            確認刪除
+          </button>
         </div>
       </div>
     </div>

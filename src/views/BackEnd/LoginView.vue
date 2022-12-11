@@ -1,7 +1,12 @@
 <template>
   <div class="container">
-    <form class="formlogin" @submit.prevent="signIn">
-      <h2 class="text-center mb-5">訂單後台管理中心</h2>
+    <form
+      class="formlogin"
+      @submit.prevent="signIn"
+    >
+      <h2 class="text-center mb-5">
+        訂單後台管理中心
+      </h2>
       <div class="form-floating mb-3">
         <input
           type="email"
@@ -11,7 +16,7 @@
           v-model="user.username"
           required
           autofocus
-        />
+        >
         <label for="floatingInput">請輸入管理員信箱</label>
       </div>
       <div class="form-floating">
@@ -21,7 +26,7 @@
           id="floatingPassword"
           v-model="user.password"
           placeholder="Password"
-        />
+        >
         <label for="floatingPassword">請輸入密碼</label>
       </div>
       <div class="form-check my-3">
@@ -30,15 +35,28 @@
           type="checkbox"
           value=""
           id="flexCheckChecked"
-        />
-        <label class="form-check-label" for="flexCheckChecked"> 記住我 </label>
+        >
+        <label
+          class="form-check-label"
+          for="flexCheckChecked"
+        > 記住我 </label>
       </div>
-      <button type="submit" class="btn btn-lg btn-primary w-100 mt-3">
+      <button
+        type="submit"
+        class="btn btn-lg btn-primary w-100 mt-3"
+      >
         登入
       </button>
-      <p class="text-danger" v-if="!state">帳號或密碼有誤，請重新輸入</p>
+      <p
+        class="text-danger"
+        v-if="!state"
+      >
+        帳號或密碼有誤，請重新輸入
+      </p>
 
-      <p class="mt-5 mb-3 text-muted">&copy; 2021~∞ - 六角學院</p>
+      <p class="mt-5 mb-3 text-muted">
+        &copy; 2021~∞ - 六角學院
+      </p>
     </form>
   </div>
 </template>

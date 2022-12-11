@@ -1,7 +1,9 @@
 <template>
   <Loading :active="isLoading" />
   <div class="d-flex flex-nowrap my-3">
-    <div class="me-auto">共有 {{ filterProducts.length }} 個產品</div>
+    <div class="me-auto">
+      共有 {{ filterProducts.length }} 個產品
+    </div>
   </div>
   <!-- list 樣式 -->
   <template class="table align-middle d-lg-none d-block">
@@ -11,20 +13,30 @@
         v-for="product in filterProducts"
         :key="product?.id"
       >
-        <RouterLink class="d-flex" :to="`/product/${product?.id}`">
+        <RouterLink
+          class="d-flex"
+          :to="`/product/${product?.id}`"
+        >
           <div
             class="me-3 products-list-bg"
             :style="{ backgroundImage: `url(${product.imageUrl})` }"
-          ></div>
+          />
           <div class="d-flex flex-column justify-content-between flex-fill">
-            <div class="text-primary">{{ product.title }}</div>
+            <div class="text-primary">
+              {{ product.title }}
+            </div>
             <div class="d-flex justify-content-between">
-              <div v-if="product.price === product.origin_price" class="h5">
+              <div
+                v-if="product.price === product.origin_price"
+                class="h5"
+              >
                 {{ product.price }} 元
               </div>
               <div v-else>
                 <del class="h6 text-gray">NT$ {{ product.origin_price }}</del>
-                <div class="h5 text-danger">NT$ {{ product.price }}</div>
+                <div class="h5 text-danger">
+                  NT$ {{ product.price }}
+                </div>
               </div>
               <div class="d-flex">
                 <button
@@ -36,8 +48,8 @@
                   <span
                     class="spinner-grow spinner-grow-sm"
                     v-show="isLoadingItem === product.id"
-                  ></span>
-                  <i class="bi bi-cart"></i>
+                  />
+                  <i class="bi bi-cart" />
                 </button>
               </div>
             </div>
@@ -49,26 +61,35 @@
   <!-- grid 樣式 -->
   <template class="d-none d-lg-block">
     <div class="row mb-3 row-cols-md-3 row-cols-1 g-4">
-      <div class="col" v-for="product in filterProducts" :key="product.id">
+      <div
+        class="col"
+        v-for="product in filterProducts"
+        :key="product.id"
+      >
         <RouterLink :to="`/product/${product.id}`">
           <div class="card border-0 h-100 product-effect p-1">
             <img
               :src="product.imageUrl"
               class="card-img-top card-img"
               :alt="product.title"
-            />
+            >
             <div class="card-body">
               <h5 class="text-primary card-title fw-bold">
                 {{ product.title }}
               </h5>
             </div>
             <div class="modal-footer border-top-0 justify-content-between">
-              <div v-if="product.price === product.origin_price" class="h5">
+              <div
+                v-if="product.price === product.origin_price"
+                class="h5"
+              >
                 NT$ {{ product.price }}
               </div>
               <div v-else>
                 <del class="h6 text-gray">NT$ {{ product.origin_price }}</del>
-                <div class="h5 text-danger">NT$ {{ product.price }}</div>
+                <div class="h5 text-danger">
+                  NT$ {{ product.price }}
+                </div>
               </div>
               <button
                 type="button"
@@ -79,8 +100,8 @@
                 <span
                   class="spinner-grow spinner-grow-sm"
                   v-show="isLoadingItem === product.id"
-                ></span>
-                <i class="bi bi-cart"></i>
+                />
+                <i class="bi bi-cart" />
               </button>
             </div>
           </div>
@@ -88,7 +109,10 @@
       </div>
     </div>
   </template>
-  <ProductModal :id="productId" @close-modal="hideModal" />
+  <ProductModal
+    :id="productId"
+    @close-modal="hideModal"
+  />
 </template>
 
 <script>

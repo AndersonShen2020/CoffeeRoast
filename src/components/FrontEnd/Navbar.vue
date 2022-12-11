@@ -11,9 +11,8 @@
           <span
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
             v-if="cartData.length !== 0"
-            >{{ cartData.length }}</span
-          >
-          <i class="bi bi-cart"></i>
+          >{{ cartData.length }}</span>
+          <i class="bi bi-cart" />
         </div>
       </RouterLink>
 
@@ -33,7 +32,7 @@
         data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" />
       </button>
       <!-- 摺疊 -->
       <div

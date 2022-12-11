@@ -1,27 +1,33 @@
 <template>
   <div class="text-primary">
-    <h3 class="coffee-header">咖啡品種｜阿拉比卡和羅布斯塔有什麼差別？</h3>
+    <h3 class="coffee-header">
+      咖啡品種｜阿拉比卡和羅布斯塔有什麼差別？
+    </h3>
 
     <p>
       世界上的咖啡品種很多，但大量用於商業用途的主要有<a
         href="https://zh.wikipedia.org/wiki/%E5%B0%8F%E6%9E%9C%E5%92%96%E5%95%A1"
         target="_blank"
         rel="noopener noreferrer"
-        >阿拉比卡</a
-      >和<a
+      >阿拉比卡</a>和<a
         href="https://zh.wikipedia.org/wiki/%E7%BE%85%E5%B8%83%E6%96%AF%E5%A1%94%E5%92%96%E5%95%A1"
         target="_blank"
         rel="noopener noreferrer"
-        >羅布斯塔</a
-      >兩種：
+      >羅布斯塔</a>兩種：
     </p>
 
     <table class="table table-bordered border-secondary">
       <tbody>
         <tr>
-          <td width="20%">咖啡品種</td>
-          <td width="30%">阿拉比卡咖啡豆</td>
-          <td width="30%">羅布斯塔咖啡豆</td>
+          <td width="20%">
+            咖啡品種
+          </td>
+          <td width="30%">
+            阿拉比卡咖啡豆
+          </td>
+          <td width="30%">
+            羅布斯塔咖啡豆
+          </td>
         </tr>
         <tr>
           <td>種植地區</td>
@@ -41,7 +47,9 @@
       </tbody>
     </table>
 
-    <h3 class="coffee-header">咖啡豆6大產地，如何找到適合自己的咖啡風味？</h3>
+    <h3 class="coffee-header">
+      咖啡豆6大產地，如何找到適合自己的咖啡風味？
+    </h3>
 
     <p>
       咖啡豆的產地主要來自非洲、南美洲及亞洲地區，非洲產出的咖啡豆大多帶有水果酸味及香氣；南美洲整體平衡感佳，口感明亮清爽；亞洲則是酸度低並帶有香料風味，建議根據個人喜好選擇合適的咖啡豆，以下為你介紹世界6大咖啡產地作為參考：

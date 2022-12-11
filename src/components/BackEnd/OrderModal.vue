@@ -8,10 +8,16 @@
     aria-hidden="true"
     ref="modal"
   >
-    <div class="modal-dialog modal-xl" role="document">
+    <div
+      class="modal-dialog modal-xl"
+      role="document"
+    >
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="exampleModalLabel">
+          <h5
+            class="modal-title"
+            id="exampleModalLabel"
+          >
             <span>訂單細節</span>
           </h5>
           <button
@@ -19,7 +25,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
-          ></button>
+          />
         </div>
         <div class="modal-body">
           <div class="row">
@@ -28,7 +34,9 @@
               <table class="table">
                 <tbody v-if="tempOrder.user">
                   <tr>
-                    <th style="width: 100px">姓名</th>
+                    <th style="width: 100px">
+                      姓名
+                    </th>
                     <td>{{ tempOrder.user.name }}</td>
                   </tr>
                   <tr>
@@ -51,7 +59,9 @@
               <table class="table">
                 <tbody>
                   <tr>
-                    <th style="width: 100px">訂單編號</th>
+                    <th style="width: 100px">
+                      訂單編號
+                    </th>
                     <td>{{ tempOrder.id }}</td>
                   </tr>
                   <tr>
@@ -74,8 +84,14 @@
                   <tr>
                     <th>付款狀態</th>
                     <td>
-                      <strong v-if="tempOrder.is_paid" class="text-success">已付款</strong>
-                      <span v-else class="text-muted">尚未付款</span>
+                      <strong
+                        v-if="tempOrder.is_paid"
+                        class="text-success"
+                      >已付款</strong>
+                      <span
+                        v-else
+                        class="text-muted"
+                      >尚未付款</span>
                     </td>
                   </tr>
                   <tr>
@@ -89,10 +105,13 @@
               <h3>選購商品</h3>
               <table class="table">
                 <thead>
-                  <tr></tr>
+                  <tr />
                 </thead>
                 <tbody>
-                  <tr v-for="item in tempOrder.products" :key="item.id">
+                  <tr
+                    v-for="item in tempOrder.products"
+                    :key="item.id"
+                  >
                     <th>
                       {{ item.product.title }}
                     </th>
@@ -111,8 +130,11 @@
                     value=""
                     id="flexCheckDefault"
                     v-model="tempOrder.is_paid"
-                  />
-                  <label class="form-check-label" for="flexCheckDefault">
+                  >
+                  <label
+                    class="form-check-label"
+                    for="flexCheckDefault"
+                  >
                     <span v-if="tempOrder.is_paid">已付款</span>
                     <span v-else>未付款</span>
                   </label>
@@ -122,10 +144,18 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
             取消
           </button>
-          <button type="button" class="btn btn-primary" @click="$emit('update-orders', tempOrder)">
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="$emit('update-orders', tempOrder)"
+          >
             修改付款狀態
           </button>
         </div>

@@ -3,9 +3,13 @@
     <nav class="py-2 border-bottom">
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item text-primary">
-          <RouterLink to="/"> 首頁 </RouterLink>
+          <RouterLink to="/">
+            首頁
+          </RouterLink>
         </li>
-        <li class="breadcrumb-item active">咖啡知識</li>
+        <li class="breadcrumb-item active">
+          咖啡知識
+        </li>
       </ol>
     </nav>
 

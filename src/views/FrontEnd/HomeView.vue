@@ -7,17 +7,24 @@
       <div
         class="text-primary bg-dark bg-opacity-25 p-3 leading-title leading-text"
       >
-        <p class="h3 fw-bold">工作與咖啡有各種組合</p>
-        <p class="h3 fw-bold leading-text-indent">找到專屬於你的最佳搭配</p>
+        <p class="h3 fw-bold">
+          工作與咖啡有各種組合
+        </p>
+        <p class="h3 fw-bold leading-text-indent">
+          找到專屬於你的最佳搭配
+        </p>
       </div>
       <div class="leading-btn">
-        <RouterLink class="btn btn-lg coffee-btn p-3" to="/products">
+        <RouterLink
+          class="btn btn-lg coffee-btn p-3"
+          to="/products"
+        >
           前往商品頁面
         </RouterLink>
       </div>
     </div>
     <div class="position-absolute bottom-0 start-50 translate-middle-x">
-      <div class="d3 down-animation"></div>
+      <div class="d3 down-animation" />
     </div>
   </div>
   <!-- 產品頁連結 -->
@@ -25,13 +32,18 @@
     <div class="container">
       <div class="row">
         <div class="col text-center">
-          <h2 class="text-primary">香濃好滋味，獨享你的味道。</h2>
+          <h2 class="text-primary">
+            香濃好滋味，獨享你的味道。
+          </h2>
           <p class="text-coffee">
-            歡迎來到 Coffee Roast，歡慶開幕輸入折扣優惠碼「<span class="fw-bold"
-              >pay88</span
-            >」全品項打 8 折，心動不如馬上行動！
+            歡迎來到 Coffee Roast，歡慶開幕輸入折扣優惠碼「<span
+              class="fw-bold"
+            >pay88</span>」全品項打 8 折，心動不如馬上行動！
           </p>
-          <RouterLink class="btn coffee-btn" to="/products">
+          <RouterLink
+            class="btn coffee-btn"
+            to="/products"
+          >
             前往商品頁面
           </RouterLink>
         </div>
@@ -42,10 +54,12 @@
   <div class="container my-3">
     <div class="row">
       <div class="col-md-7 d-none d-md-block">
-        <div class="bg-image1"></div>
+        <div class="bg-image1" />
       </div>
       <div class="col-md-5 d-flex flex-column justify-content-center">
-        <h3 class="coffee-header">咖啡品種</h3>
+        <h3 class="coffee-header">
+          咖啡品種
+        </h3>
         <div class="text-start text-lg-center text-coffee">
           <p>咖啡豆的產地主要來自非洲、南美洲及亞洲地區。</p>
           <p>非洲產出的咖啡豆大多帶有水果酸味及香氣。</p>
@@ -53,7 +67,10 @@
           <p>亞洲則是酸度低並帶有香料風味。</p>
         </div>
         <div class="d-flex justify-content-end">
-          <RouterLink class="btn coffee-btn" to="/KnowledgeView">
+          <RouterLink
+            class="btn coffee-btn"
+            to="/KnowledgeView"
+          >
             查看咖啡品種
           </RouterLink>
         </div>
@@ -61,7 +78,9 @@
     </div>
     <div class="row mt-5">
       <div class="col-md-5 d-flex flex-column justify-content-center">
-        <h3 class="coffee-header">咖啡烘焙</h3>
+        <h3 class="coffee-header">
+          咖啡烘焙
+        </h3>
         <div class="text-start text-lg-center text-coffee">
           <p>烘焙咖啡使咖啡生豆通過烘炒轉變為已烘焙的咖啡製品。</p>
           <p>
@@ -84,15 +103,17 @@
         </div>
       </div>
       <div class="col-md-7 d-none d-md-block">
-        <div class="bg-image2"></div>
+        <div class="bg-image2" />
       </div>
     </div>
     <div class="row mt-5">
       <div class="col-md-7 d-none d-md-block">
-        <div class="bg-image3"></div>
+        <div class="bg-image3" />
       </div>
       <div class="col-md-5 d-flex flex-column justify-content-center">
-        <h3 class="coffee-header">手沖咖啡</h3>
+        <h3 class="coffee-header">
+          手沖咖啡
+        </h3>
         <div class="text-start text-lg-center text-coffee">
           <p>手沖咖啡一點也不難！</p>
           <p>
@@ -113,7 +134,9 @@
   <!-- 產品 -->
   <div class="bg-light bg-opacity-50 py-5 my-5">
     <div class="container">
-      <h2 class="text-center text-primary mb-5">我們的咖啡豆</h2>
+      <h2 class="text-center text-primary mb-5">
+        我們的咖啡豆
+      </h2>
       <Swiper
         :loop="true"
         :autoplay="{
@@ -124,11 +147,14 @@
         :breakpoints="breakpoints"
         :navigation="navigation"
       >
-        <SwiperSlide v-for="product in coffeeProducts" :key="product.id">
+        <SwiperSlide
+          v-for="product in coffeeProducts"
+          :key="product.id"
+        >
           <CardComponent :item="product" />
         </SwiperSlide>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev" />
+        <div class="swiper-button-next" />
       </Swiper>
     </div>
   </div>
@@ -138,7 +164,10 @@
       <div class="row">
         <div class="col text-center">
           <form @submit.prevent="subscription">
-            <label class="form-label" for="email">
+            <label
+              class="form-label"
+              for="email"
+            >
               <h2 class="text-primary">訂閱我們以獲得更多優惠資訊</h2>
             </label>
             <div class="row">
@@ -150,8 +179,11 @@
                     class="form-control"
                     placeholder="輸入 Email 訂閱我們"
                     v-model.trim="subscribeEmail"
-                  />
-                  <button class="btn btn-primary" type="submit">
+                  >
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                  >
                     <span>訂閱</span>
                   </button>
                 </div>

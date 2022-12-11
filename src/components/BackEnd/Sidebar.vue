@@ -8,13 +8,28 @@
         <RouterLink class="nav-link" to="/admin/Products">產品</RouterLink>
       </li> -->
       <li class="list-group-item">
-        <RouterLink class="nav-link" to="/admin">產品</RouterLink>
+        <RouterLink
+          class="nav-link"
+          to="/admin"
+        >
+          產品
+        </RouterLink>
       </li>
       <li class="list-group-item">
-        <RouterLink class="nav-link" to="/admin/Coupons">優惠卷</RouterLink>
+        <RouterLink
+          class="nav-link"
+          to="/admin/Coupons"
+        >
+          優惠卷
+        </RouterLink>
       </li>
       <li class="list-group-item">
-        <RouterLink class="nav-link" to="/admin/Orders">訂單</RouterLink>
+        <RouterLink
+          class="nav-link"
+          to="/admin/Orders"
+        >
+          訂單
+        </RouterLink>
       </li>
     </ul>
   </aside>

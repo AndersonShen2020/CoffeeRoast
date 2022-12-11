@@ -22,14 +22,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in coupons" :key="item.code">
+        <tr
+          v-for="item in coupons"
+          :key="item.code"
+        >
           <td>{{ item.title }}</td>
           <td>{{ item.code }}</td>
           <td>{{ item.percent }}%</td>
           <td>{{ new Date(item.due_date * 1000).toLocaleDateString() }}</td>
           <td>
-            <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
-            <span v-else class="text-muted">未啟用</span>
+            <span
+              v-if="item.is_enabled === 1"
+              class="text-success"
+            >啟用</span>
+            <span
+              v-else
+              class="text-muted"
+            >未啟用</span>
           </td>
           <td>
             <div class="btn-group">
@@ -52,7 +61,10 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pages="pagination" @emitpages="getCoupons" />
+    <Pagination
+      :pages="pagination"
+      @emitpages="getCoupons"
+    />
   </div>
   <CouponsModal
     ref="couponModal"
