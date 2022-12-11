@@ -1,20 +1,30 @@
 <template>
   <aside class="sidebar">
     <ul class="list-group list-group-flush bg-transparent">
-      <!-- <li class="list-group-item">
-        <RouterLink class="nav-link" to="/admin">首頁</RouterLink>
-      </li> -->
-      <!-- <li class="list-group-item">
-        <RouterLink class="nav-link" to="/admin/Products">產品</RouterLink>
-      </li> -->
       <li class="list-group-item">
+        <RouterLink
+          class="nav-link"
+          to="/admin"
+        >
+          首頁
+        </RouterLink>
+      </li>
+      <li class="list-group-item">
+        <RouterLink
+          class="nav-link"
+          to="/admin/Products"
+        >
+          產品
+        </RouterLink>
+      </li>
+      <!-- <li class="list-group-item">
         <RouterLink
           class="nav-link"
           to="/admin"
         >
           產品
         </RouterLink>
-      </li>
+      </li> -->
       <li class="list-group-item">
         <RouterLink
           class="nav-link"

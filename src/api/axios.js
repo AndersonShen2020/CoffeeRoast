@@ -110,3 +110,19 @@ export async function deleteProduct (id) {
     })
   }
 }
+
+const token = document.cookie.replace(
+  /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+  '$1'
+)
+
+// 後台管理者
+const adminRequest = axios.create({
+  baseURL: `${url}/api/${path}/admin`,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: token
+  }
+})
+
+export const getProductsForChart = () => adminRequest.get('/products/all')
