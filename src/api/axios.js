@@ -125,4 +125,18 @@ const adminRequest = axios.create({
   }
 })
 
+/**
+ * 取得所有後台產品
+ * @returns {Object} 回傳為物件，主要內容在 data.products 中
+ */
 export const getProductsForChart = () => adminRequest.get('/products/all')
+/**
+ * 取得後台產品的頁數
+ * @returns {Object} 回傳為物件，需求數據在 data.pagination.total_pages 中
+ */
+export const getOrdersPagesNumForChart = () => adminRequest.get('/orders')
+/**
+ * 依據 getOrdersPagesNumForChart 取得的頁數，來重複打 API 獲取 order
+ * @returns {Array} 回傳為陣列，需求數據在 data.orders 中
+ */
+export const getOrdersForChart = (num) => adminRequest.get(`/orders?page=${num}`)
