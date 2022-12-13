@@ -116,7 +116,7 @@ export default {
       })
 
       // 依據 paid_date 使用 YYYY/MM 進行分類
-      // 格式為 ['YYYY/MM', 訂單數] - [['2022/12', 30],['2022/11', 130]]
+      // 格式為 {'YYYY/MM': 訂單數} - {{'2022/12': 30},{'2022/11': 130}}
       const orderDateFilter = {}
       this.allOrders.forEach(order => {
         if (order.paid_date !== 'Invalid Date') {
@@ -142,25 +142,32 @@ export default {
         }
       }
       console.log(orderDateFilter)
+
+      // 將 orderDateFilter 的內容轉換成 [['date', '2018/1/26', '2018/2/26', '2018/5/26', '2018/12/26'],['訂單數', 30, 50, 60, 900]]
+      const result = [['date'], ['訂單數']]
+      Object.keys(orderDateFilter).forEach(orderDate => {
+        result[0].push(orderDate)
+        result[1].push(orderDateFilter[orderDate])
+      })
+      console.log(result)
+      this.chartForMonthOrder(result)
     },
     /**
      * 圖表 - 各月訂單數量
      */
-    Chart3 () {
+    chartForMonthOrder (chartDate) {
       c3.generate({
         bindto: '#ordersChart',
         data: {
           x: 'date',
-          columns: [
-            ['date', '2013-02-01', '2013-03-02', '2013-05-03', '2013-06-04', '2013-09-05', '2013-10-06'],
-            ['data1', 30, 200, 100, 400, 150, 250]
-          ]
+          xFormat: '%Y/%m', // how the date is parsed
+          columns: chartDate
         },
         axis: {
           x: {
             type: 'timeseries',
             tick: {
-              format: '%Y-%m'
+              format: '%Y/%m' // how the date is displayed
             }
           }
         }
@@ -172,7 +179,6 @@ export default {
   mounted () {
     this.getAllProducts()
     this.getAllOrdersNum()
-    this.Chart3()
   }
 }
 </script>
