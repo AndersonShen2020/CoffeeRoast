@@ -131,14 +131,33 @@ export default {
       })
 
       // 增加 MM 不存在的月份，其值為 0
-      // 注意，這邊只能算同年份
+      const nowYear = parseInt(Object.keys(orderDateFilter)[0].split('/')[0])
       const firstMonth = parseInt(Object.keys(orderDateFilter)[Object.keys(orderDateFilter).length - 1].split('/')[1])
       const lastMonth = parseInt(Object.keys(orderDateFilter)[0].split('/')[1])
 
-      for (let i = firstMonth; i < lastMonth; i++) {
-        const newYearMonth = `2022/${i}`
-        if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
-          orderDateFilter[newYearMonth] = 0
+      if (nowYear > 2022) {
+        // 2022
+        for (let month = firstMonth; month <= 12; month++) {
+          const newYearMonth = `2022/${month}`
+          if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
+            orderDateFilter[newYearMonth] = 0
+          }
+        }
+        // 2022 之後的年份
+        for (let year = nowYear; year < nowYear; year++) {
+          for (let month = 1; month <= lastMonth; month++) {
+            const newYearMonth = `${year}/${month}`
+            if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
+              orderDateFilter[newYearMonth] = 0
+            }
+          }
+        }
+      } else {
+        for (let month = firstMonth; month <= 12; month++) {
+          const newYearMonth = `2022/${month}`
+          if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
+            orderDateFilter[newYearMonth] = 0
+          }
         }
       }
       console.log(orderDateFilter)
