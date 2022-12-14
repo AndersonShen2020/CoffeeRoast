@@ -2,15 +2,15 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <h2>總產品比例</h2>
+        <h2>產品營收比重</h2>
         <div id="productsChart" />
       </div>
       <div class="col-6">
-        <h2>當月銷售產品數量</h2>
+        <h2>當月銷售產品數量與總金額</h2>
         <div id="productsChart" />
       </div>
       <div class="col-12">
-        <h2>各月訂單數量</h2>
+        <h2>各月訂單數量與金額</h2>
         <div id="ordersChart" />
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
       this.productsChart()
     },
     /**
-     * 圖表 - 產品總比例
+     * 圖表 - 產品營收比重
      */
     productsChart () {
       c3.generate({
@@ -72,7 +72,7 @@ export default {
       })
     },
     /**
-     * 圖表 - 當月銷售產品數量
+     * 圖表 - 當月銷售產品數量與總金額
      */
     Chart2 () {
       c3.generate({
@@ -116,21 +116,25 @@ export default {
       })
 
       // 依據 paid_date 使用 YYYY/MM 進行分類
-      // 格式為 {'YYYY/MM': 訂單數} - {{'2022/12': 30},{'2022/11': 130}}
+      // 格式為 'YYYY/MM': {orders: 訂單數, totalCost: 訂單總金額} - {'2022/12': {orders: 30, totalCost: 18000}, '2022/11': {orders: 1, totalCost: 18000}}
       const orderDateFilter = {}
       this.allOrders.forEach(order => {
         if (order.paid_date !== 'Invalid Date') {
           const str = order.paid_date.split('/')
           const newStr = `${str[0]}/${str[1]}`
           if (orderDateFilter[newStr]) {
-            orderDateFilter[newStr] += 1
+            orderDateFilter[newStr].orders += 1
+            orderDateFilter[newStr].totalCost += order.total
           } else {
-            orderDateFilter[newStr] = 1
+            orderDateFilter[newStr] = {
+              orders: 1,
+              totalCost: order.total
+            }
           }
         }
       })
+      console.log(orderDateFilter)
 
-      // 增加 MM 不存在的月份，其值為 0
       const nowYear = parseInt(Object.keys(orderDateFilter)[0].split('/')[0])
       const firstMonth = parseInt(Object.keys(orderDateFilter)[Object.keys(orderDateFilter).length - 1].split('/')[1])
       const lastMonth = parseInt(Object.keys(orderDateFilter)[0].split('/')[1])
@@ -140,7 +144,10 @@ export default {
         for (let month = firstMonth; month <= 12; month++) {
           const newYearMonth = `2022/${month}`
           if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
-            orderDateFilter[newYearMonth] = 0
+            orderDateFilter[newYearMonth] = {
+              orders: 0,
+              totalCost: 0
+            }
           }
         }
         // 2022 之後的年份
@@ -148,7 +155,10 @@ export default {
           for (let month = 1; month <= lastMonth; month++) {
             const newYearMonth = `${year}/${month}`
             if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
-              orderDateFilter[newYearMonth] = 0
+              orderDateFilter[newYearMonth] = {
+                orders: 0,
+                totalCost: 0
+              }
             }
           }
         }
@@ -156,23 +166,28 @@ export default {
         for (let month = firstMonth; month <= 12; month++) {
           const newYearMonth = `2022/${month}`
           if (Object.keys(orderDateFilter).includes(newYearMonth) === false) {
-            orderDateFilter[newYearMonth] = 0
+            orderDateFilter[newYearMonth] = {
+              orders: 0,
+              totalCost: 0
+            }
           }
         }
       }
       console.log(orderDateFilter)
 
       // 將 orderDateFilter 的內容轉換成 [['date', '2018/1/26', '2018/2/26', '2018/5/26', '2018/12/26'],['訂單數', 30, 50, 60, 900]]
-      const result = [['date'], ['訂單數']]
+      const result = [['date'], ['訂單數'], ['總金額']]
       Object.keys(orderDateFilter).forEach(orderDate => {
+        console.log(orderDate)
         result[0].push(orderDate)
-        result[1].push(orderDateFilter[orderDate])
+        result[1].push(orderDateFilter[orderDate].orders)
+        result[2].push(orderDateFilter[orderDate].totalCost)
       })
       console.log(result)
       this.chartForMonthOrder(result)
     },
     /**
-     * 圖表 - 各月訂單數量
+     * 圖表 - 各月訂單數量與金額
      */
     chartForMonthOrder (chartDate) {
       c3.generate({
@@ -180,7 +195,15 @@ export default {
         data: {
           x: 'date',
           xFormat: '%Y/%m', // how the date is parsed
-          columns: chartDate
+          columns: chartDate,
+          types: {
+            訂單數: 'area-spline',
+            總金額: 'area-spline'
+          },
+          axes: {
+            總金額: 'y',
+            訂單數: 'y2'
+          }
         },
         axis: {
           x: {
@@ -188,6 +211,21 @@ export default {
             tick: {
               format: '%Y/%m' // how the date is displayed
             }
+          },
+          y: {
+            padding: { top: 0, bottom: 100 },
+            label: {
+              text: '總金額',
+              position: 'outer-middle'
+            }
+          },
+          y2: {
+            padding: { top: 200, bottom: 0 },
+            label: {
+              text: '訂單數',
+              position: 'outer-middle'
+            },
+            show: true
           }
         }
       })
