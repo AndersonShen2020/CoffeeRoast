@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <h2>產品營收比重</h2>
-        <div id="productsChart" />
+        <div id="proportionOfProductRevenueChart" />
       </div>
-      <div class="col-6">
-        <h2>當月銷售產品數量與總金額</h2>
-        <div id="productsChart" />
+      <div class="col-12">
+        <h2>當月銷售產品數量</h2>
+        <div id="monthlySalesVolumeChart" />
       </div>
       <div class="col-12">
         <h2>各月訂單數量與金額</h2>
-        <div id="ordersChart" />
+        <div id="monthlyOrderQuantityAndAmountChart" />
       </div>
     </div>
   </div>
@@ -24,10 +24,13 @@ import c3 from 'c3'
 export default {
   data () {
     return {
-      products: {},
-      productsForClassification: [],
-      ordersPagesNum: 0,
-      allOrders: []
+      originalProducts: {}, // 從後台拿到的商品清單
+      productsForClassification: [], // 產品營收比重
+      monthlySalesItemName: [], // 當月銷售產品數量 - 名稱
+      monthlySalesVolume: ['銷售數量'], // 當月銷售產品數量 - 數量
+      ordersPagesNum: 0, // 因為後台不提供所有訂單，所以要找出訂單的頁數自己加總
+      allOrders: [], // 所有的訂單
+      monthlyOrderQuantityAndAmount: [] // 各月訂單數量與金額
     }
   },
   methods: {
@@ -36,53 +39,12 @@ export default {
      */
     getAllProducts () {
       api.getProductsForChart().then(res => {
-        this.products = res.data.products
-        this.countProductClassification()
+        this.originalProducts = res.data.products
       }).catch(err => {
         console.log(err)
       })
     },
-    /**
-     * 統計產品主分類的數量
-     */
-    countProductClassification () {
-      const count = {}
-      Object.values(this.products).forEach(product => {
-        if (count[product.classification] === undefined) {
-          count[product.classification] = 1
-        } else {
-          count[product.classification] += 1
-        }
-      })
-      Object.keys(count).forEach((classification) => {
-        this.productsForClassification.push([classification, count[classification]])
-      })
-      this.productsChart()
-    },
-    /**
-     * 圖表 - 產品營收比重
-     */
-    productsChart () {
-      c3.generate({
-        bindto: '#productsChart',
-        data: {
-          type: 'pie',
-          columns: this.productsForClassification
-        }
-      })
-    },
-    /**
-     * 圖表 - 當月銷售產品數量與總金額
-     */
-    Chart2 () {
-      c3.generate({
-        bindto: '#productsChart',
-        data: {
-          type: 'pie',
-          columns: this.productsForClassification
-        }
-      })
-    },
+
     /**
      * 取得訂單頁數
      */
@@ -94,8 +56,11 @@ export default {
         console.log(err)
       })
     },
+
     /**
-     * 取得所有訂單
+     * 取得所有訂單並轉換其中的 Timestamp 成 YYYY/MM/DD
+     *
+     * @param {Number} num 總頁數
      */
     async getAllOrdersAndChangeTimestamp (num) {
       // 取得所有訂單
@@ -108,6 +73,7 @@ export default {
           console.log(err)
         })
       }
+
       // 轉換 timestamp 成 YYYY/MM/DD
       this.allOrders.map(order => {
         order.create_at = new Date(order.create_at * 1000).toLocaleDateString()
@@ -115,11 +81,108 @@ export default {
         return order
       })
 
+      this.StatisticsOrderDataToMonthlyChartData()
+      this.proportionOfProductRevenue()
+    },
+
+    /**
+     * 產品營收比重
+     */
+    proportionOfProductRevenue () {
+      // 依據 paid_date 使用 YYYY/MM 進行分類
+      // 格式為 {'YYYY/MM': {產品名稱: 產品數量}} - {'2022/12': {百蜜花園咖啡豆(中焙): 2, 隨行精鋼磨豆機: 1}, '2022/11': {百蜜花園咖啡豆(中焙): 2, 隨行精鋼磨豆機: 1}}
+      const orderList = {}
+      this.allOrders.forEach((order, i) => {
+        if (order.is_paid === true && order.paid_date !== 'Invalid Date') {
+          const str = order.paid_date.split('/')
+          const newStr = `${str[0]}/${str[1]}`
+
+          Object.values(order.products).forEach(item => {
+            if (orderList[newStr]) {
+              if (orderList[newStr][item.product.title]) {
+                orderList[newStr][item.product.title] += item.qty
+              } else {
+                orderList[newStr][item.product.title] = item.qty
+              }
+            } else {
+              orderList[newStr] = {}
+              orderList[newStr][item.product.title] = item.qty
+            }
+          })
+        }
+      })
+      console.log(orderList)
+
+      // 轉換格式並統整數據
+      // monthlySalesItemName - ['百蜜花園咖啡豆(中焙)', '隨行精鋼磨豆機', ...]
+      // monthlySalesVolume - [30, 120, ....]
+      const date = new Date()
+      const nowYearMonth = `${date.getFullYear()}/${date.getMonth() + 1}`
+      // const result = []
+      Object.keys(orderList[nowYearMonth]).forEach(item => {
+        this.monthlySalesItemName.push(item)
+        this.monthlySalesVolume.push(orderList[nowYearMonth][item])
+        // result.push([item, orderList[nowYearMonth][item]])
+      })
+      // this.monthlySalesVolume = result
+      // console.log(typeof this.monthlySalesItemName, typeof this.monthlySalesVolume)
+      this.setMonthlySalesVolumeChart()
+    },
+
+    /**
+     * 圖表 1 - 產品營收比重 (未做)
+     */
+    proportionOfProductRevenueChart () {
+      c3.generate({
+        bindto: '#proportionOfProductRevenueChart',
+        data: {
+          type: 'pie',
+          columns: this.productsForClassification
+        }
+      })
+    },
+
+    /**
+     * 圖表 2 - 當月銷售產品數量 (正在做)
+     */
+    setMonthlySalesVolumeChart () {
+      c3.generate({
+        bindto: '#monthlySalesVolumeChart',
+        data: {
+          type: 'bar',
+          columns: [this.monthlySalesVolume]
+        },
+        axis: {
+          rotated: true, // 反轉圖表，X -> Y，Y -> X
+          x: {
+            show: true,
+            type: 'category', // X 軸資料類型
+            categories: this.monthlySalesItemName, // X 軸需顯示的資料
+            tick: {
+              multiline: false // 顯示換行設定
+            },
+            label: {
+              text: '商品名稱', // 標籤文字
+              position: 'outer-middle' // 標籤位置
+            }
+          },
+          y: {
+            show: true
+          }
+        },
+        size: {
+          height: this.monthlySalesItemName.length * 60,
+          width: 640
+        }
+      })
+    },
+
+    StatisticsOrderDataToMonthlyChartData () {
       // 依據 paid_date 使用 YYYY/MM 進行分類
       // 格式為 'YYYY/MM': {orders: 訂單數, totalCost: 訂單總金額} - {'2022/12': {orders: 30, totalCost: 18000}, '2022/11': {orders: 1, totalCost: 18000}}
       const orderDateFilter = {}
       this.allOrders.forEach(order => {
-        if (order.paid_date !== 'Invalid Date') {
+        if (order.is_paid === true && order.paid_date !== 'Invalid Date') {
           const str = order.paid_date.split('/')
           const newStr = `${str[0]}/${str[1]}`
           if (orderDateFilter[newStr]) {
@@ -184,18 +247,20 @@ export default {
         result[2].push(orderDateFilter[orderDate].totalCost)
       })
       console.log(result)
-      this.chartForMonthOrder(result)
+      this.monthlyOrderQuantityAndAmount = result
+      this.chartForMonthlyOrder()
     },
+
     /**
-     * 圖表 - 各月訂單數量與金額
+     * 圖表 3 - 各月訂單數量與金額
      */
-    chartForMonthOrder (chartDate) {
+    chartForMonthlyOrder () {
       c3.generate({
-        bindto: '#ordersChart',
+        bindto: '#monthlyOrderQuantityAndAmountChart',
         data: {
           x: 'date',
           xFormat: '%Y/%m', // how the date is parsed
-          columns: chartDate,
+          columns: this.monthlyOrderQuantityAndAmount,
           types: {
             訂單數: 'area-spline',
             總金額: 'area-spline'
@@ -240,4 +305,8 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+text{
+//  font-size: 13px;
+}
+</style>
