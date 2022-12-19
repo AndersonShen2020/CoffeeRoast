@@ -86,7 +86,7 @@ export default {
     },
 
     /**
-     * 產品營收比重
+     * 當月銷售產品數量
      */
     proportionOfProductRevenue () {
       // 依據 paid_date 使用 YYYY/MM 進行分類
@@ -118,14 +118,19 @@ export default {
       // monthlySalesVolume - [30, 120, ....]
       const date = new Date()
       const nowYearMonth = `${date.getFullYear()}/${date.getMonth() + 1}`
-      // const result = []
+      const result = []
       Object.keys(orderList[nowYearMonth]).forEach(item => {
-        this.monthlySalesItemName.push(item)
-        this.monthlySalesVolume.push(orderList[nowYearMonth][item])
-        // result.push([item, orderList[nowYearMonth][item]])
+        // this.monthlySalesItemName.push(item)
+        // this.monthlySalesVolume.push(orderList[nowYearMonth][item])
+        result.push([item, orderList[nowYearMonth][item]])
       })
+      result.sort((x, y) => y[1] - x[1])
       // this.monthlySalesVolume = result
-      // console.log(typeof this.monthlySalesItemName, typeof this.monthlySalesVolume)
+      console.log(result)
+      result.forEach(item => {
+        this.monthlySalesItemName.push(item[0])
+        this.monthlySalesVolume.push(item[1])
+      })
       this.setMonthlySalesVolumeChart()
     },
 
@@ -143,7 +148,7 @@ export default {
     },
 
     /**
-     * 圖表 2 - 當月銷售產品數量 (正在做)
+     * 圖表 2 - 當月銷售產品數量
      */
     setMonthlySalesVolumeChart () {
       c3.generate({
