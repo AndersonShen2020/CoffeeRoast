@@ -152,6 +152,11 @@ export default {
           type: 'bar',
           columns: [this.monthlySalesVolume]
         },
+        bar: {
+          width: {
+            ratio: 0.5 // this makes bar width 50% of length between ticks
+          }
+        },
         axis: {
           rotated: true, // 反轉圖表，X -> Y，Y -> X
           x: {
@@ -160,11 +165,11 @@ export default {
             categories: this.monthlySalesItemName, // X 軸需顯示的資料
             tick: {
               multiline: false // 顯示換行設定
-            },
-            label: {
-              text: '商品名稱', // 標籤文字
-              position: 'outer-middle' // 標籤位置
             }
+            // label: {
+            //   text: '商品名稱', // 標籤文字
+            //   position: 'outer-middle' // 標籤位置
+            // }
           },
           y: {
             show: true
@@ -172,7 +177,10 @@ export default {
         },
         size: {
           height: this.monthlySalesItemName.length * 60,
-          width: 640
+          width: 1100
+        },
+        color: {
+          pattern: ['#ff7f0e']
         }
       })
     },
@@ -306,7 +314,8 @@ export default {
 </script>
 
 <style lang="scss">
-text{
-//  font-size: 13px;
+text {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 13px;
 }
 </style>
