@@ -2,8 +2,31 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2>產品營收比重</h2>
-        <div id="proportionOfProductRevenueChart" />
+        <div class="row">
+          <div class="col-3">
+            本月業績
+            {{ allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth() + 1]?.totalCost }}
+          </div>
+          <div class="col-3">
+            上月業績
+            {{ new Date().getMonth() === 0 ?
+              allPerformance?.[new Date().getFullYear() - 1]?.[12]?.totalCost :
+              allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth()]?.totalCost
+            }}
+          </div>
+          <div class="col-3">
+            本季業績
+          </div>
+          <div class="col-3">
+            今年業績
+            {{ allPerformance === {} ?
+              0 :
+              allPerformance[new Date().getFullYear()] === undefined ?
+                0 :
+                Object.values(allPerformance?.[new Date().getFullYear()]).reduce((acc, cur) => acc + cur.totalCost, 0)
+            }}
+          </div>
+        </div>
       </div>
       <div class="col-12">
         <h2>當月銷售產品數量</h2>
@@ -21,21 +44,52 @@
 import * as api from '@/api/axios'
 import c3 from 'c3'
 
+// 1. 建立各季對應月份的物件陣列
+const season = {
+  spring: [1, 2, 3],
+  summer: [4, 5, 6],
+  autumn: [7, 8, 9],
+  winter: [10, 11, 12]
+}
+
+// 2. 利用上方的物件陣列找出現在對應的日期(key)，使用 Object.entries()
+function test () {
+  // 找出現在的月份
+  const month = new Date().getMonth() + 1
+  // 利用上面的月份，找出對應的季節
+  Object.entries(season).forEach(item => {
+    console.log(month, item[1])
+    if (item[1].includes(month)) {
+      console.log(item[0])
+    }
+  })
+}
+
+test()
+
 export default {
   data () {
     return {
-      originalProducts: {}, // 從後台拿到的商品清單
-      productsForClassification: [], // 產品營收比重
-      monthlySalesItemName: [], // 當月銷售產品數量 - 名稱
-      monthlySalesVolume: ['銷售數量'], // 當月銷售產品數量 - 數量
+      // 原始訂單
       ordersPagesNum: 0, // 因為後台不提供所有訂單，所以要找出訂單的頁數自己加總
       allOrders: [], // 所有的訂單
+
+      // Performance 業績
+      allPerformance: {}, // 所有業績，從這份資料來取出特定的業績
+      productsForClassification: [], // 產品營收比重 <--- 沒用到
+
+      // 圖表 1 - 當月銷售產品數量
+      monthlySalesItemName: [], // 當月銷售產品數量 - 名稱
+      monthlySalesVolume: ['銷售數量'], // 當月銷售產品數量 - 數量
+
+      // 圖表 2 - 各月訂單數量與金額
       monthlyOrderQuantityAndAmount: [] // 各月訂單數量與金額
+
     }
   },
   methods: {
     /**
-     * 取得所有的產品
+     * 取得所有的產品 (沒用到)
      */
     getAllProducts () {
       api.getProductsForChart().then(res => {
@@ -135,20 +189,7 @@ export default {
     },
 
     /**
-     * 圖表 1 - 產品營收比重 (未做)
-     */
-    proportionOfProductRevenueChart () {
-      c3.generate({
-        bindto: '#proportionOfProductRevenueChart',
-        data: {
-          type: 'pie',
-          columns: this.productsForClassification
-        }
-      })
-    },
-
-    /**
-     * 圖表 2 - 當月銷售產品數量
+     * 圖表 1 - 當月銷售產品數量
      */
     setMonthlySalesVolumeChart () {
       c3.generate({
@@ -249,7 +290,18 @@ export default {
           }
         }
       }
+      // this.allPerformance = orderDateFilter
+      this.allPerformance = Object.keys(orderDateFilter).reduce((acc, key) => {
+        const [year, month] = key.split('/')
+        if (!acc[year]) acc[year] = {}
+        acc[year][month] = orderDateFilter[key]
+        return acc
+      }, {})
+
       console.log(orderDateFilter)
+
+      // const totalCost = Object.values(data).reduce((acc, cur) => acc + cur.totalCost, 0);
+      // console.log(totalCost);
 
       // 將 orderDateFilter 的內容轉換成 [['date', '2018/1/26', '2018/2/26', '2018/5/26', '2018/12/26'],['訂單數', 30, 50, 60, 900]]
       const result = [['date'], ['訂單數'], ['總金額']]
@@ -265,7 +317,7 @@ export default {
     },
 
     /**
-     * 圖表 3 - 各月訂單數量與金額
+     * 圖表 2 - 各月訂單數量與金額
      */
     chartForMonthlyOrder () {
       c3.generate({
@@ -312,7 +364,6 @@ export default {
   computed: {
   },
   mounted () {
-    this.getAllProducts()
     this.getAllOrdersNum()
   }
 }
