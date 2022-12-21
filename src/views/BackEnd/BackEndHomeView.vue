@@ -16,14 +16,13 @@
           </div>
           <div class="col-3">
             本季業績
+            {{ getThisSeasonTotal }}
           </div>
           <div class="col-3">
             今年業績
-            {{ allPerformance === {} ?
+            {{ allPerformance === {} || allPerformance[new Date().getFullYear()] === undefined ?
               0 :
-              allPerformance[new Date().getFullYear()] === undefined ?
-                0 :
-                Object.values(allPerformance?.[new Date().getFullYear()]).reduce((acc, cur) => acc + cur.totalCost, 0)
+              Object.values(allPerformance[new Date().getFullYear()]).reduce((acc, cur) => acc + cur.totalCost, 0)
             }}
           </div>
         </div>
@@ -75,6 +74,7 @@ export default {
       allOrders: [], // 所有的訂單
 
       // Performance 業績
+      season,
       allPerformance: {}, // 所有業績，從這份資料來取出特定的業績
       productsForClassification: [], // 產品營收比重 <--- 沒用到
 
@@ -362,6 +362,20 @@ export default {
     }
   },
   computed: {
+    getThisSeasonTotal () {
+      let result = 0
+      if (this.allPerformance === {} || this.allPerformance[new Date().getFullYear()] === undefined) {
+        return 0
+      } else {
+        Object.entries(season).forEach(item => {
+          if (item[1].includes(new Date().getMonth() + 1)) {
+            // item[0].reduce((acc, cur) => acc + this.allPerformance[new Date().getFullYear()][cur].totalCost, 0)
+            result = this.season[item[0]].reduce((acc, cur) => acc + this.allPerformance[new Date().getFullYear()][cur].totalCost, 0)
+          }
+        })
+      }
+      return result
+    }
   },
   mounted () {
     this.getAllOrdersNum()
