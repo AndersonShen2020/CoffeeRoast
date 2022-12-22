@@ -6,7 +6,7 @@
           class="nav-link"
           to="/admin"
         >
-          首頁
+          經營儀表板
         </RouterLink>
       </li>
       <li class="list-group-item">

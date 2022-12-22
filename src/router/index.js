@@ -10,8 +10,8 @@ import KnowledgeView from '@/views/FrontEnd/KnowledgeView.vue'
 
 // 後台
 import Login from '@/views/BackEnd/LoginView.vue'
-import BackEndHomeView from '@/views/BackEnd/BackEndHomeView.vue'
-import Dashboard from '@/views/BackEnd/DashboardView.vue'
+import DashboardView from '@/views/BackEnd/DashboardView.vue'
+import LayoutView from '@/views/BackEnd/LayoutView.vue'
 import Products from '@/views/BackEnd/ProductsView.vue'
 import Coupons from '@/views/BackEnd/CouponsView.vue'
 import Orders from '@/views/BackEnd/OrdersView.vue'
@@ -69,13 +69,13 @@ const routes = [
   // 後台
   {
     path: '/admin',
-    name: 'Dashboard',
-    component: Dashboard,
+    name: 'Layout',
+    component: LayoutView,
     children: [
       {
         path: '',
-        name: 'BackEndHome',
-        component: BackEndHomeView
+        name: 'Dashboard',
+        component: DashboardView
       },
       {
         path: 'products',
