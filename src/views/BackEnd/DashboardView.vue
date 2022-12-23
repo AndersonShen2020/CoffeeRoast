@@ -1,37 +1,81 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 mt-4">
         <div class="row">
           <div class="col-3">
-            本月業績
-            {{ allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth() + 1]?.totalCost.toLocaleString() }}
+            <div class="border shadow-sm d-flex align-items-center bg-white">
+              <div class="bg-danger bg-gradient p-1 text-white">
+                <span class="material-symbols-outlined icon align-middle">
+                  local_atm
+                </span>
+              </div>
+              <div class="d-flex flex-column align-self-center pt-1 ps-3">
+                <span class="fs-5">本月業績</span>
+                <span class="fs-2 fw-bold">
+                  {{ allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth() + 1]?.totalCost.toLocaleString() }}
+                </span>
+              </div>
+            </div>
           </div>
           <div class="col-3">
-            上月業績
-            {{ new Date().getMonth() === 0 ?
-              allPerformance?.[new Date().getFullYear() - 1]?.[12]?.totalCost.toLocaleString() :
-              allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth()]?.totalCost.toLocaleString()
-            }}
+            <div class="border shadow-sm d-flex align-items-center bg-white">
+              <div class="bg-warning bg-gradient p-1 text-white">
+                <span class="material-symbols-outlined icon align-middle">
+                  monetization_on
+                </span>
+              </div>
+              <div class="d-flex flex-column align-self-center pt-1 ps-3">
+                <span class="fs-5">上月業績</span>
+                <span class="fs-2 fw-bold">
+                  {{ new Date().getMonth() === 0 ?
+                    allPerformance?.[new Date().getFullYear() - 1]?.[12]?.totalCost.toLocaleString() :
+                    allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth()]?.totalCost.toLocaleString()
+                  }}
+                </span>
+              </div>
+            </div>
           </div>
           <div class="col-3">
-            本季業績
-            {{ getThisSeasonTotal }}
+            <div class="border shadow-sm d-flex align-items-center  bg-white">
+              <div class="bg-info bg-gradient p-1 text-white">
+                <span class="material-symbols-outlined icon align-middle">
+                  payments
+                </span>
+              </div>
+              <div class="d-flex flex-column align-self-center pt-1 ps-3">
+                <span class="fs-5">本季業績</span>
+                <span class="fs-2 fw-bold">
+                  {{ getThisSeasonTotal }}
+                </span>
+              </div>
+            </div>
           </div>
           <div class="col-3">
-            今年業績
-            {{ allPerformance === {} || allPerformance[new Date().getFullYear()] === undefined ?
-              0 :
-              Object.values(allPerformance[new Date().getFullYear()]).reduce((acc, cur) => acc + cur.totalCost, 0).toLocaleString()
-            }}
+            <div class="border shadow-sm d-flex align-items-center bg-white">
+              <div class="bg-success bg-gradient p-1 text-white">
+                <span class="material-symbols-outlined icon align-middle">
+                  savings
+                </span>
+              </div>
+              <div class="d-flex flex-column align-self-center pt-1 ps-3">
+                <span class="fs-5">今年業績</span>
+                <span class="fs-2 fw-bold">
+                  {{ allPerformance === {} || allPerformance[new Date().getFullYear()] === undefined ?
+                    0 :
+                    Object.values(allPerformance[new Date().getFullYear()]).reduce((acc, cur) => acc + cur.totalCost, 0).toLocaleString()
+                  }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12 mt-4">
         <h2>當月銷售產品數量</h2>
         <div id="monthlySalesVolumeChart" />
       </div>
-      <div class="col-12">
+      <div class="col-12 mt-4">
         <h2>各月訂單數量與金額</h2>
         <div id="monthlyOrderQuantityAndAmountChart" />
       </div>
@@ -386,5 +430,9 @@ export default {
 text {
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 13px;
+}
+
+.icon{
+  font-size: 5rem;
 }
 </style>
