@@ -50,12 +50,8 @@
   }
 }
 
-.nav-color:hover {
+.nav-color:hover a, .router-link-exact-active{
   background-color: burlywood;
-}
-
-.router-link-exact-active{
   color: white;
-  background-color: burlywood;
 }
 </style>
