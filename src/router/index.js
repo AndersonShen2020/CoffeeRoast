@@ -69,7 +69,7 @@ const routes = [
   // 後台
   {
     path: '/admin',
-    name: 'Layout',
+    name: 'adminLayout',
     component: LayoutView,
     children: [
       {
