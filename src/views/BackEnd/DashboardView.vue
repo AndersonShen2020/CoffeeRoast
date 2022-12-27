@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
+      <!--  -->
       <div class="col-12 mt-4">
         <div class="row">
           <div class="col-3">
@@ -71,13 +72,17 @@
           </div>
         </div>
       </div>
-      <div class="col-12 mt-4">
-        <h2>當月銷售產品數量</h2>
-        <div id="monthlySalesVolumeChart" />
+      <div class="chart col-12 mt-4">
+        <div class="chart-content border shadow-sm bg-white">
+          <h2>當月銷售產品數量</h2>
+          <div id="monthlySalesVolumeChart" />
+        </div>
       </div>
-      <div class="col-12 mt-4">
-        <h2>各月訂單數量與金額</h2>
-        <div id="monthlyOrderQuantityAndAmountChart" />
+      <div class="chart col-12 mt-4">
+        <div class="chart-content border shadow-sm bg-white">
+          <h2>各月訂單數量與金額</h2>
+          <div id="monthlyOrderQuantityAndAmountChart" />
+        </div>
       </div>
     </div>
   </div>
@@ -87,28 +92,13 @@
 import * as api from '@/api/axios'
 import c3 from 'c3'
 
-// 1. 建立各季對應月份的物件陣列
+// 建立各季對應月份的物件陣列
 const season = {
   spring: [1, 2, 3],
   summer: [4, 5, 6],
   autumn: [7, 8, 9],
   winter: [10, 11, 12]
 }
-
-// 2. 利用上方的物件陣列找出現在對應的日期(key)，使用 Object.entries()
-function test () {
-  // 找出現在的月份
-  const month = new Date().getMonth() + 1
-  // 利用上面的月份，找出對應的季節
-  Object.entries(season).forEach(item => {
-    console.log(month, item[1])
-    if (item[1].includes(month)) {
-      console.log(item[0])
-    }
-  })
-}
-
-test()
 
 export default {
   data () {
@@ -256,18 +246,13 @@ export default {
             tick: {
               multiline: false // 顯示換行設定
             }
-            // label: {
-            //   text: '商品名稱', // 標籤文字
-            //   position: 'outer-middle' // 標籤位置
-            // }
           },
           y: {
             show: true
           }
         },
         size: {
-          height: this.monthlySalesItemName.length * 60,
-          width: 1100
+          height: this.monthlySalesItemName.length * 60
         },
         color: {
           pattern: ['#ff7f0e']
@@ -401,6 +386,9 @@ export default {
             },
             show: true
           }
+        },
+        size: {
+          height: 540
         }
       })
     }
@@ -427,6 +415,18 @@ export default {
 </script>
 
 <style lang="scss">
+.chart {
+  &-content{
+    padding: 1rem;
+    h2{
+      margin-bottom: 1rem;
+    }
+  }
+  &:last-child{
+    margin-bottom: 1.5rem;
+  }
+}
+
 text {
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 13px;
