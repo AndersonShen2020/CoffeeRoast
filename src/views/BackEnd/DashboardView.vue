@@ -14,7 +14,7 @@
               <div class="d-flex flex-column align-self-center pt-1 ps-3">
                 <span class="fs-5">本月業績</span>
                 <span class="fs-2 fw-bold">
-                  {{ allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth() + 1]?.totalCost.toLocaleString() }}
+                  {{ allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth() + 1]?.totalCost.toLocaleString() || 0 }}
                 </span>
               </div>
             </div>
@@ -29,9 +29,9 @@
               <div class="d-flex flex-column align-self-center pt-1 ps-3">
                 <span class="fs-5">上月業績</span>
                 <span class="fs-2 fw-bold">
-                  {{ new Date().getMonth() === 0 ?
+                  {{ (new Date().getMonth() === 0 ?
                     allPerformance?.[new Date().getFullYear() - 1]?.[12]?.totalCost.toLocaleString() :
-                    allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth()]?.totalCost.toLocaleString()
+                    allPerformance?.[new Date().getFullYear()]?.[new Date().getMonth()]?.totalCost.toLocaleString()) || 0
                   }}
                 </span>
               </div>
