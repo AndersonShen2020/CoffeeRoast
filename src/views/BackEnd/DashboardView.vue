@@ -356,12 +356,17 @@ export default {
           xFormat: '%Y/%m', // how the date is parsed
           columns: this.monthlyOrderQuantityAndAmount,
           types: {
-            訂單數: 'area-spline',
-            總金額: 'area-spline'
+            訂單數: 'bar',
+            總金額: 'area'
           },
           axes: {
             總金額: 'y',
             訂單數: 'y2'
+          }
+        },
+        bar: {
+          width: {
+            ratio: 0.5 // this makes bar width 50% of length between ticks
           }
         },
         axis: {
@@ -372,14 +377,14 @@ export default {
             }
           },
           y: {
-            padding: { top: 0, bottom: 100 },
+            padding: { top: 10, bottom: 10 },
             label: {
               text: '總金額',
               position: 'outer-middle'
             }
           },
           y2: {
-            padding: { top: 200, bottom: 0 },
+            padding: { top: 100, bottom: 10 },
             label: {
               text: '訂單數',
               position: 'outer-middle'
@@ -389,6 +394,14 @@ export default {
         },
         size: {
           height: 540
+        },
+        grid: {
+          x: {
+            show: true
+          },
+          y: {
+            show: true
+          }
         }
       })
     }
