@@ -105,8 +105,6 @@ import DelProductModal from '@/components/BackEnd/DelProduct'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-import titleMixin from '@/mixins/titleMixin'
-
 const tempProduct = {
   title: '',
   category: '',
@@ -122,7 +120,6 @@ const tempProduct = {
 }
 
 export default {
-  mixins: [titleMixin],
   components: {
     Pagination,
     ProductModal,
@@ -131,7 +128,6 @@ export default {
   },
   data () {
     return {
-      title: '產品管理',
       products: [],
       pagination: null,
       isNew: false,

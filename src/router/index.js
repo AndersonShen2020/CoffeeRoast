@@ -74,33 +74,28 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Dashboard',
+        name: '經營儀表板 | 後台管理',
         component: DashboardView
       },
       {
         path: 'products',
-        name: 'products',
+        name: '產品管理 | 後台管理',
         component: Products
       },
-      // {
-      //   path: '',
-      //   name: 'products',
-      //   component: Products
-      // },
       {
         path: 'Coupons',
-        name: 'Coupons',
+        name: '優惠卷管理 | 後台管理',
         component: Coupons
       },
       {
         path: 'Orders',
-        name: 'Orders',
+        name: '訂單管理 | 後台管理',
         component: Orders
       }
     ]
   },
+  // 輸入錯誤網址跳到 404 頁面
   {
-    // 輸入錯誤網址跳到 404 頁面
     path: '/:pathMatch(.*)*',
     name: 'Error',
     component: () => import('@/views/Error.vue')
@@ -110,6 +105,10 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach((to, form) => {
+  document.title = to.name
 })
 
 export default router

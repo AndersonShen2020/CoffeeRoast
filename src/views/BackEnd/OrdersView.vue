@@ -107,10 +107,7 @@ import DelOrderModal from '@/components/BackEnd/DelOrder'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-import titleMixin from '@/mixins/titleMixin'
-
 export default {
-  mixins: [titleMixin],
   components: {
     Pagination,
     OrderModal,
@@ -119,7 +116,6 @@ export default {
   },
   data () {
     return {
-      title: '訂單管理',
       pagination: null,
       orders: [],
       tempOrder: {},

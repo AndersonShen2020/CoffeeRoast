@@ -89,10 +89,7 @@ import DelCoupons from '@/components/BackEnd/DelCoupon'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-import titleMixin from '@/mixins/titleMixin'
-
 export default {
-  mixins: [titleMixin],
   components: {
     Pagination,
     CouponsModal,
@@ -101,7 +98,6 @@ export default {
   },
   data () {
     return {
-      title: '優惠卷管理',
       coupons: [],
       pagination: null,
       isNew: false,
