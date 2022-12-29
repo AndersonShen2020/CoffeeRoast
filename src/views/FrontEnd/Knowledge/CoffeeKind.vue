@@ -78,6 +78,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  beforeCreate () {
+    document.title = '咖啡品種 | Coffee Roast'
+  }
+}
+</script>
+
 <style scoped>
 * {
   margin: 1rem auto;

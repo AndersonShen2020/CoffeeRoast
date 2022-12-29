@@ -8,18 +8,14 @@
       </div>
       <div
         class="col-4 d-flex flex-column p-3"
-        :class="
-          !isPaid ? 'bg-primary text-secondary' : 'bg-secondary text-primary'
-        "
+        :class="!isPaid ? 'bg-primary text-secondary' : 'bg-secondary text-primary'"
       >
         <span>STEP2</span>
         <span>建立訂單</span>
       </div>
       <div
         class="col-4 d-flex flex-column p-3"
-        :class="
-          isPaid ? 'bg-primary text-secondary' : 'bg-secondary text-primary'
-        "
+        :class="isPaid ? 'bg-primary text-secondary' : 'bg-secondary text-primary'"
       >
         <span>STEP3</span>
         <span>完成訂單</span>
@@ -326,20 +322,16 @@ import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-import titleMixin from '@/mixins/titleMixin'
-
 import Swal from 'sweetalert2'
 const url = process.env.VUE_APP_API
 const path = process.env.VUE_APP_PATH
 
 export default {
-  mixins: [titleMixin],
   components: {
     Loading
   },
   data () {
     return {
-      title: '建立訂單',
       id: this.$route.params.id,
       order: {},
       isPaid: false,
@@ -381,7 +373,7 @@ export default {
           text: err.response.data.message
         })
       }
-      document.title = '完成訂單'
+      document.title = '完成訂單 | Coffee Roast'
       this.isPaid = true
       this.isLoading = false
       emitter.emit('getCartNum')
@@ -390,6 +382,9 @@ export default {
   mounted () {
     this.isLoading = true
     this.getOrder()
+  },
+  beforeRouteEnter () {
+    document.title = '建立訂單 | Coffee Roast'
   }
 }
 </script>

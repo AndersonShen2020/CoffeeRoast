@@ -82,6 +82,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  beforeCreate () {
+    document.title = '咖啡豆烘焙 | Coffee Roast'
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 /* * {
   margin: 1rem auto;

@@ -25,37 +25,35 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'home',
+        name: 'Coffee Roast',
         component: HomeView
       },
       {
         path: '/about',
-        name: 'about',
+        name: '關於本店 | Coffee Roast',
         component: about
       },
       {
         path: '/Products',
-        name: 'Products',
+        name: '產品列表 | Coffee Roast',
         component: ProductsList
       },
       {
         path: '/Product/:id',
-        name: 'Product',
         component: () => import('@/views/FrontEnd/ProductView.vue')
       },
       {
         path: '/CheckOrder',
-        name: 'CheckOrder',
+        name: '確認訂單 | Coffee Roast',
         component: CheckOrderView
       },
       {
         path: '/CheckOut/:id',
-        name: 'CheckOut',
+        name: '您的購物車 | Coffee Roast',
         component: CheckOutView
       },
       {
         path: '/KnowledgeView',
-        name: 'KnowledgeView',
         component: KnowledgeView
       }
     ]
@@ -63,7 +61,7 @@ const routes = [
   // 登入
   {
     path: '/Login',
-    name: 'Login',
+    name: '登入 | 後台管理',
     component: Login
   },
   // 後台
@@ -97,7 +95,7 @@ const routes = [
   // 輸入錯誤網址跳到 404 頁面
   {
     path: '/:pathMatch(.*)*',
-    name: 'Error',
+    name: '找不到網頁 | Coffee Roast',
     component: () => import('@/views/Error.vue')
   }
 ]
@@ -108,7 +106,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, form) => {
-  document.title = to.name
+  document.title = to.name || 'Coffee Roast'
 })
 
 export default router

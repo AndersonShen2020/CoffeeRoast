@@ -208,17 +208,14 @@ import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import CardComponent from '@/components/common/CardComponent.vue'
-import titleMixin from '@/mixins/titleMixin'
 const url = process.env.VUE_APP_API
 const path = process.env.VUE_APP_PATH
 
 export default {
-  mixins: [titleMixin],
   data () {
     return {
       subscribeEmail: '',
       isLoading: false,
-      title: 'Coffee Roast',
       modules: [Autoplay, Navigation],
       coffeeProducts: [],
       breakpoints: {

@@ -62,12 +62,10 @@ import axios from 'axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 
-import titleMixin from '@/mixins/titleMixin'
 const url = process.env.VUE_APP_API
 const path = process.env.VUE_APP_PATH
 
 export default {
-  mixins: [titleMixin],
   components: {
     ShoppingCart,
     ValidateForm,
@@ -75,7 +73,6 @@ export default {
   },
   data () {
     return {
-      title: '確認訂單',
       products: [],
       isLoading: false
     }

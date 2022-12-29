@@ -64,13 +64,10 @@
 <script>
 import router from '@/router'
 import { login, checkAdmin } from '@/api/axios'
-import titleMixin from '@/mixins/titleMixin'
 
 export default {
-  mixins: [titleMixin],
   data () {
     return {
-      title: '後台管理',
       state: true,
       user: {
         username: '',

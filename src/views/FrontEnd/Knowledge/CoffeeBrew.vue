@@ -49,6 +49,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  beforeCreate () {
+    document.title = '手沖咖啡技巧 | Coffee Roast'
+  }
+}
+</script>
+
 <style scoped>
 * {
   margin: 1rem auto;

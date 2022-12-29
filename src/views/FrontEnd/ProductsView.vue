@@ -27,17 +27,14 @@
 <script>
 import ProductsList from '@/components/FrontEnd/ProductsList.vue'
 import ProductsSidebar from '@/components/FrontEnd/ProductsSidebar.vue'
-import titleMixin from '@/mixins/titleMixin'
 
 export default {
   components: {
     ProductsSidebar,
     ProductsList
   },
-  mixins: [titleMixin],
   data () {
     return {
-      title: '產品列表'
     }
   }
 }

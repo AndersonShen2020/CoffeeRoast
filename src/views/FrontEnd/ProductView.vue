@@ -212,10 +212,10 @@
           :autoplay="swiperOptions.autoplay"
         >
           <SwiperSlide
-            v-for="product in products"
-            :key="product.id"
+            v-for="swiperItem in products"
+            :key="swiperItem.id"
           >
-            <CardComponent :item="product" />
+            <CardComponent :item="swiperItem" />
           </SwiperSlide>
         </Swiper>
       </div>
@@ -299,7 +299,7 @@ export default {
       try {
         const res = await axios.get(`${url}/api/${path}/product/${this.id}`)
         this.product = res.data.product
-        document.title = res.data.product.title
+        document.title = `${res.data.product.title} | Coffee Roast`
       } catch (err) {
         this.isLoading = false
         this.$swal({
