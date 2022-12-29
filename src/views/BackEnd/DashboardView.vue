@@ -140,7 +140,13 @@ export default {
         this.ordersPagesNum = res.data.pagination.total_pages
         this.getAllOrdersAndChangeTimestamp(this.ordersPagesNum)
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
+        this.$swal({
+          icon: 'error',
+          timer: 2000,
+          showConfirmButton: false,
+          text: err.response.data.message
+        })
       })
     },
 
@@ -157,7 +163,13 @@ export default {
             this.allOrders.push(order)
           })
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
+          this.$swal({
+            icon: 'error',
+            timer: 2000,
+            showConfirmButton: false,
+            text: err.response.data.message
+          })
         })
       }
 
@@ -198,7 +210,6 @@ export default {
           })
         }
       })
-      console.log(orderList)
 
       // 轉換格式並統整數據
       // monthlySalesItemName - ['百蜜花園咖啡豆(中焙)', '隨行精鋼磨豆機', ...]
@@ -213,7 +224,6 @@ export default {
       })
       result.sort((x, y) => y[1] - x[1])
       // this.monthlySalesVolume = result
-      console.log(result)
       result.forEach(item => {
         this.monthlySalesItemName.push(item[0])
         this.monthlySalesVolume.push(item[1])
@@ -282,7 +292,6 @@ export default {
           }
         }
       })
-      console.log(orderDateFilter)
 
       const nowYear = parseInt(Object.keys(orderDateFilter)[0].split('/')[0])
       const firstMonth = parseInt(Object.keys(orderDateFilter)[Object.keys(orderDateFilter).length - 1].split('/')[1])
@@ -330,21 +339,15 @@ export default {
         return acc
       }, {})
 
-      console.log(orderDateFilter)
-
-      // const totalCost = Object.values(data).reduce((acc, cur) => acc + cur.totalCost, 0);
-      // console.log(totalCost);
-
       // 將 orderDateFilter 的內容轉換成 [['date', '2018/1/26', '2018/2/26', '2018/5/26', '2018/12/26'],['訂單數', 30, 50, 60, 900]]
       const result = [['date'], ['訂單數'], ['總金額']]
       Object.keys(orderDateFilter).forEach(orderDate => {
-        console.log(orderDate)
         result[0].push(orderDate)
         result[1].push(orderDateFilter[orderDate].orders)
         result[2].push(orderDateFilter[orderDate].totalCost)
       })
-      console.log(result)
       this.monthlyOrderQuantityAndAmount = result
+
       this.renderChartForMonthlyOrder()
     },
 

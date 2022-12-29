@@ -169,7 +169,7 @@ export default {
         this.$emit('resetCoupons')
         this.isLoading = false
       } catch (err) {
-        console.dir(err)
+        // console.dir(err)
         this.isLoading = false
         this.$swal({
           icon: 'error',
