@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="!setLoading" />
   <div class="container">
     <div class="row">
       <!--  -->
@@ -92,6 +93,9 @@
 import * as api from '@/api/axios'
 import c3 from 'c3'
 
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+
 // 建立各季對應月份的物件陣列
 const season = {
   spring: [1, 2, 3],
@@ -101,6 +105,9 @@ const season = {
 }
 
 export default {
+  components: {
+    Loading
+  },
   data () {
     return {
       // 原始訂單
@@ -117,22 +124,14 @@ export default {
       monthlySalesVolume: ['銷售數量'], // 當月銷售產品數量 - 數量
 
       // 圖表 2 - 各月訂單數量與金額
-      monthlyOrderQuantityAndAmount: [] // 各月訂單數量與金額
+      monthlyOrderQuantityAndAmount: [], // 各月訂單數量與金額
 
+      // 圖表渲染完畢
+      isRenderChart1: false,
+      isRenderChart2: false
     }
   },
   methods: {
-    /**
-     * 取得所有的產品 (沒用到)
-     */
-    getAllProducts () {
-      api.getProductsForChart().then(res => {
-        this.originalProducts = res.data.products
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-
     /**
      * 取得訂單頁數
      */
@@ -174,7 +173,7 @@ export default {
     },
 
     /**
-     * 當月銷售產品數量
+     * 圖表 1 - 當月銷售產品數量
      */
     proportionOfProductRevenue () {
       // 依據 paid_date 使用 YYYY/MM 進行分類
@@ -219,13 +218,13 @@ export default {
         this.monthlySalesItemName.push(item[0])
         this.monthlySalesVolume.push(item[1])
       })
-      this.setMonthlySalesVolumeChart()
+      this.renderMonthlySalesVolumeChart()
     },
 
     /**
-     * 圖表 1 - 當月銷售產品數量
+     * 渲染圖表 1 - 當月銷售產品數量
      */
-    setMonthlySalesVolumeChart () {
+    renderMonthlySalesVolumeChart () {
       c3.generate({
         bindto: '#monthlySalesVolumeChart',
         data: {
@@ -258,8 +257,12 @@ export default {
           pattern: ['#ff7f0e']
         }
       })
+      this.isRenderChart1 = true
     },
 
+    /**
+     * 圖表 2 - 各月訂單數量與金額
+     */
     StatisticsOrderDataToMonthlyChartData () {
       // 依據 paid_date 使用 YYYY/MM 進行分類
       // 格式為 'YYYY/MM': {orders: 訂單數, totalCost: 訂單總金額} - {'2022/12': {orders: 30, totalCost: 18000}, '2022/11': {orders: 1, totalCost: 18000}}
@@ -342,13 +345,13 @@ export default {
       })
       console.log(result)
       this.monthlyOrderQuantityAndAmount = result
-      this.chartForMonthlyOrder()
+      this.renderChartForMonthlyOrder()
     },
 
     /**
-     * 圖表 2 - 各月訂單數量與金額
+     * 渲染圖表 2 - 各月訂單數量與金額
      */
-    chartForMonthlyOrder () {
+    renderChartForMonthlyOrder () {
       c3.generate({
         bindto: '#monthlyOrderQuantityAndAmountChart',
         data: {
@@ -404,6 +407,7 @@ export default {
           }
         }
       })
+      this.isRenderChart2 = true
     }
   },
   computed: {
@@ -419,6 +423,10 @@ export default {
         })
       }
       return result.toLocaleString()
+    },
+    setLoading () {
+      const { isRenderChart1, isRenderChart2 } = this
+      return (isRenderChart1 && isRenderChart2)
     }
   },
   mounted () {
