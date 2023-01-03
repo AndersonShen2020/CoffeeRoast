@@ -218,12 +218,10 @@ export default {
       const nowYearMonth = `${date.getFullYear()}/${date.getMonth() + 1}`
       const result = []
       Object.keys(orderList[nowYearMonth]).forEach(item => {
-        // this.monthlySalesItemName.push(item)
-        // this.monthlySalesVolume.push(orderList[nowYearMonth][item])
         result.push([item, orderList[nowYearMonth][item]])
       })
       result.sort((x, y) => y[1] - x[1])
-      // this.monthlySalesVolume = result
+
       result.forEach(item => {
         this.monthlySalesItemName.push(item[0])
         this.monthlySalesVolume.push(item[1])
@@ -421,7 +419,10 @@ export default {
       } else {
         Object.entries(season).forEach(item => {
           if (item[1].includes(new Date().getMonth() + 1)) {
-            result = this.season[item[0]].reduce((acc, cur) => acc + this.allPerformance[new Date().getFullYear()][cur].totalCost, 0)
+            result = this.season[item[0]].reduce((acc, cur) => {
+              const current = (this.allPerformance[new Date().getFullYear()][cur]?.totalCost || 0)
+              return acc + current
+            }, 0)
           }
         })
       }
