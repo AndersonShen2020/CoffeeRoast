@@ -1,22 +1,22 @@
-# 本專案的注意事項
+## 本專案的注意事項
 
-## 測試環境
+### 測試環境
 
 - chrome
 - 行動版使用 chrome 的內建工具，以 iPhone 12 Pro(390 * 844) 來進行開發
 
-## Node.js
+### Node.js
 
 Node 的版本使用 v12.19.0
 
-## 技術
+### 技術
 
 - Vue 3
 - Vue Cli
 - Vue Router
 - Google APPs Script
 
-## 使用的 Plugin
+### 使用的 Plugin
 
 - Bootstrap 5
 - bootstrap-icons
@@ -26,15 +26,20 @@ Node 的版本使用 v12.19.0
 - vue-loading-overlay
 - Swiper
 - Sweetalert2
+- c3.js
 
-# 開發過程的問題紀錄
+### API 串接
 
-## Bootstrap Modal 的使用
+後端 DashboardView.vue 中的 `getAllOrdersAndChangeTimestamp` 函式之所以要重複呼叫 `getOrdersForChart`，是因為 API 只提供「依據頁數回傳相對應的訂單」
+
+## 開發過程的問題紀錄
+
+### Bootstrap Modal 的使用
 
 如果有重複實例化(`new Modal(this.$refs.modal);`)，會無法正常運作。
 擔心會重複實例化就設計成使用 mixins 載入，這樣只要在 mixins 中實例化就好
 
-## 載入 bootstrap-icons
+### 載入 bootstrap-icons
 
 官方文件並沒有告知要如何在 npm 的情況下使用，所以模仿 Bootstrap 的模式找到 `bootstrap-icons.css` 這個檔案來載入使用
 
@@ -42,7 +47,7 @@ Node 的版本使用 v12.19.0
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 ```
 
-## 載入 Swiper
+### 載入 Swiper
 
 官方文件的載入方式是錯誤的，照做不會有效果 - 2022/03/18
 
@@ -60,7 +65,7 @@ import { Swiper, SwiperSlide } from "swiper/vue/swiper-vue";
 import "swiper/swiper.scss";
 ```
 
-## mitt 的使用
+### mitt 的使用
 
 測試結果是 `this` 不能抓到 Vue 的相關資訊
 
@@ -80,7 +85,7 @@ emitter.on("clearCart", () => {
 });
 ```
 
-## $route.query 加上 watch 來做篩選功能
+### $route.query 加上 watch 來做篩選功能
 
 嘗試將產品列表都抓下來後，針對 category 這個屬性在本地端去做篩選功能
 
