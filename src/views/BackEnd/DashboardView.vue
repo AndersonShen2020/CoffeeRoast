@@ -74,9 +74,17 @@
         </div>
       </div>
       <div class="chart col-12 mt-4">
-        <div class="chart-content border shadow-sm bg-white">
+        <div class="chart-content border shadow-sm bg-white position-relative">
           <h2>當月銷售產品數量</h2>
-          <div id="monthlySalesVolumeChart" />
+          <div
+            id="monthlySalesVolumeChart"
+          />
+          <div
+            class="position-absolute monthlySales-lightbox"
+            v-if="isNoData"
+          >
+            本月無資料
+          </div>
         </div>
       </div>
       <div class="chart col-12 mt-4">
@@ -122,6 +130,7 @@ export default {
       // 圖表 1 - 當月銷售產品數量
       monthlySalesItemName: [], // 當月銷售產品數量 - 名稱
       monthlySalesVolume: ['銷售數量'], // 當月銷售產品數量 - 數量
+      isNoData: false, // 當月的資料如不存在，需為 true
 
       // 圖表 2 - 各月訂單數量與金額
       monthlyOrderQuantityAndAmount: [], // 各月訂單數量與金額
@@ -217,15 +226,21 @@ export default {
       const date = new Date()
       const nowYearMonth = `${date.getFullYear()}/${date.getMonth() + 1}`
       const result = []
-      Object.keys(orderList[nowYearMonth]).forEach(item => {
-        result.push([item, orderList[nowYearMonth][item]])
-      })
-      result.sort((x, y) => y[1] - x[1])
+      if (orderList[nowYearMonth] === undefined) {
+        // 不存在當月資料
+        this.isNoData = true
+      } else {
+        this.isNoData = false
+        Object.keys(orderList[nowYearMonth]).forEach(item => {
+          result.push([item, orderList[nowYearMonth][item]])
+        })
+        result.sort((x, y) => y[1] - x[1])
 
-      result.forEach(item => {
-        this.monthlySalesItemName.push(item[0])
-        this.monthlySalesVolume.push(item[1])
-      })
+        result.forEach(item => {
+          this.monthlySalesItemName.push(item[0])
+          this.monthlySalesVolume.push(item[1])
+        })
+      }
       this.renderMonthlySalesVolumeChart()
     },
 
@@ -459,5 +474,18 @@ text {
 
 .icon{
   font-size: 5rem;
+}
+
+.monthlySales-lightbox{
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
